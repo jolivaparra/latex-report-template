@@ -1,0 +1,29 @@
+\documentclass{report}
+\usepackage{udec-report}
+
+\profesor{Dr. Nombre Profesor}
+\asignatura{NombreRamo}{000000}
+\semestre{20XX - X}
+\title{Titulo del Informe del Proyecto}
+
+\grupo{00}
+\integrante{Nombre Integrante 1}
+\integrante{Nombre Integrante 2}
+\integrante{Nombre Integrante 3}
+
+\begin{document}
+\portada
+
+\tableofcontents
+
+\input{content/sections/01_introduccion.tex}
+\input{content/sections/02_metodologia.tex}
+\input{content/sections/03_resultados.tex}
+\input{content/sections/04_discusion.tex}
+\input{content/sections/05_conclusiones.tex}
+
+\appendix
+\input{content/apendix/A_appendix1.tex}
+\input{content/apendix/B_appendix2.tex}
+
+\end{document}

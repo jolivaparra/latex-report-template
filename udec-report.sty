@@ -1,0 +1,67 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{udec-report}
+
+\RequirePackage{udec-core}
+
+% ========== FORMATO ==========
+\onehalfspacing
+
+\RequirePackage[a4paper,
+    left=2cm,
+    right=2cm,
+    top=2.5cm,
+    bottom=2.5cm]{geometry}
+
+% ========== DATOS ==========
+\newcommand{\numeroGrupo}{00}
+\newcommand{\integrantes}{}
+
+\newcommand{\grupo}[1]{\renewcommand{\numeroGrupo}{#1}}
+\newcommand{\integrante}[1]{%
+    \gappto\integrantes{{\large #1} \\[10pt]}%
+}
+
+
+% ========== EXTRACCIÓN DE DATOS ==========
+\InputIfFileExists{infoAsignatura.tex}{}{}
+
+
+% ========== PORTADA ==========
+\newcommand{\textoTitulo}{Titulo del Documento}
+\newcommand{\titulo}[1]{\renewcommand{\textoTitulo}{#1}}
+
+\newcommand{\portada}{
+    \begin{titlepage}
+        \centering
+        {\scshape\huge Universidad de Concepción} \\[10pt]
+        {\scshape\LARGE Facultad de Ingeniería} \\[10pt]
+        {\scshape\Large Departamento de Ingeniería Eléctrica} \\[1.5cm]
+
+        \includegraphics[width=0.2\textwidth]{logo.png} \\[2cm]
+
+        {\bfseries \huge {\codigoAsignatura} - \nombreAsignatura} \\[0.5cm]
+        {\LARGE \infoSemestre} \\[0.5cm]
+        {\Large Profesor: \nombreProfesor} \\[3cm]
+
+        {\bfseries \huge \textoTitulo} \\[0.75cm]
+        {\Large Grupo \numeroGrupo} \\[0.75cm]
+
+        \integrantes
+
+        \vfill
+        {\large Concepción, \today}
+
+    \end{titlepage}
+}
+
+
+% ========== COMANDOS DE USUARIO ==========
+% Inserción rápida de imágenes
+\newcommand{\imagen}[4]{
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=#2\textwidth]{#1}
+        \caption{#3}
+        \label{#4}
+    \end{figure}
+}
