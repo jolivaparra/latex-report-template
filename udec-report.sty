@@ -1,36 +1,131 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{udec-report}
 
-\RequirePackage{udec-core}
+% ========== PAQUETES ==========
 
-% ========== FORMATO ==========
-\onehalfspacing
+% Lógica/Programación
+% \RequirePackage{xparse}
+% \RequirePackage{etoolbox}
 
+% Configuración Base
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[spanish,es-tabla]{babel}
+
+% Geometría
 \RequirePackage[a4paper,
     left=2cm,
     right=2cm,
     top=2.5cm,
     bottom=2.5cm]{geometry}
 
-% ========== DATOS ==========
+% Tipografía y Estilo de Texto
+\RequirePackage{newtxtext, newtxmath} % Times New Roman
+\RequirePackage{setspace}
+\onehalfspacing
+\RequirePackage{microtype}
+
+
+% Matemáticas y Ciencia
+\let\Bbbk\relax
+\RequirePackage{mathtools}
+\RequirePackage{amssymb} % Si newtxmath da error "already defined", comenta esta línea
+\RequirePackage{esint}
+\RequirePackage{siunitx}
+\RequirePackage{cancel}
+
+% Figuras
+\RequirePackage{graphicx}
+\RequirePackage{listings}
+\RequirePackage{tikz}
+\RequirePackage[american]{circuitikz}
+
+% Tablas
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{makecell}   % *
+\RequirePackage{array}      % *
+
+
+% Elementos Flotantes
+\RequirePackage{float}
+\RequirePackage{subcaption}
+\RequirePackage[shortlabels]{enumitem} % *
+
+% Utilidades de Revisión
+\RequirePackage[textsize=footnotesize, obeyFinal]{todonotes}
+
+% Bibliografía
+\RequirePackage{csquotes}
+\RequirePackage[
+    backend=biber,       % Motor recomendado
+    style=ieee,          % Estilo ingeniería estándar
+    citestyle=numeric-comp % Citas como [1-3]
+]{biblatex}
+
+% Referencias y Links
+\RequirePackage[
+    hidelinks,
+    pdfusetitle,
+    linktoc=all
+]{hyperref}
+
+% Cleveref siempre se importa como Paquete Final
+\RequirePackage{cleveref}
+
+% Configuración de idioma Cleveref
+\AtBeginDocument{%
+    \crefname{table}{tabla}{tablas}%
+    \Crefname{table}{Tabla}{Tablas}%
+    \crefname{figure}{figura}{figuras}%
+    \Crefname{figure}{Figura}{Figuras}%
+    \crefname{equation}{ec.}{ecs.}%
+    \Crefname{equation}{Ecuación}{Ecuaciones}%
+}
+
+
+% ========== VARIABLES DE DATOS ==========
+\newcommand{\nombreAsignatura}{Nombre Asignatura}
+\newcommand{\codigoAsignatura}{000000}
+\newcommand{\infoSemestre}{20XX - X}
+\newcommand{\nombreProfesor}{Nombre Profesor}
 \newcommand{\numeroGrupo}{00}
 \newcommand{\integrantes}{}
 
+
+\newcommand{\asignatura}[2]{
+    \renewcommand{\nombreAsignatura}{#1}
+    \renewcommand{\codigoAsignatura}{#2}
+}
+\newcommand{\semestre}[1]{\renewcommand{\infoSemestre}{#1}}
+\newcommand{\profesor}[1]{\renewcommand{\nombreProfesor}{#1}}
 \newcommand{\grupo}[1]{\renewcommand{\numeroGrupo}{#1}}
 \newcommand{\integrante}[1]{%
     \gappto\integrantes{{\large #1} \\[10pt]}%
 }
 
-
 % ========== EXTRACCIÓN DE DATOS ==========
 \InputIfFileExists{infoAsignatura.tex}{}{}
 
+% ========== COMANDOS/MACROS ==========
+% Vectores
+\newcommand{\vect}[1]{\vec{#1}}
+% \newcommand{\vect}[1]{\mathbf{#1}}
+
+% Divergencia / Divergence
+\newcommand{\diver}[1]{\nabla\cdot\vect{#1}}
+
+% Rotacional / Curl
+\newcommand{\rot}[1]{\nabla\times\vect{#1}}
+
+% Gradiente / Gradient
+\newcommand{\grad}[1]{\nabla #1}
 
 % ========== PORTADA ==========
 \newcommand{\textoTitulo}{Titulo del Documento}
 \newcommand{\titulo}[1]{\renewcommand{\textoTitulo}{#1}}
 
-\newcommand{\portada}{
+\newcommand{\crearPortada}{
     \begin{titlepage}
         \centering
         {\scshape\huge Universidad de Concepción} \\[10pt]
@@ -53,7 +148,6 @@
 
     \end{titlepage}
 }
-
 
 % ========== COMANDOS DE USUARIO ==========
 % Inserción rápida de imágenes
